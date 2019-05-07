@@ -1,13 +1,13 @@
-# resources:
-#   - name: app
-#     type: gitRepo
-#     repoPath: manishas/app
-#     configuration:
-#       integrationName: manishas_github
-#       branches:
-#         only: master
-#     initialVersion:
-#       sha: master
+resources:
+  - name: app
+    type: gitRepo
+    repoPath: manishas/app
+    configuration:
+      integrationName: manishas_github
+      branches:
+        only: master
+    initialVersion:
+      sha: master
 
 pipelines:
 
@@ -24,9 +24,9 @@ pipelines:
         #      custom:
         #        name: drydock/u16all
         #        tag: master
-        # triggeredBy:
-        #   resources:
-        #     - app
+        triggeredBy:
+          resources:
+            - app
         execution:
           onExecute:
             - sleep 3m
