@@ -1,0 +1,112 @@
+# resources:
+#   - name: app
+#     type: gitRepo
+#     repoPath: manishas/app
+#     configuration:
+#       integrationName: manishas_github
+#       branches:
+#         only: master
+#     initialVersion:
+#       sha: master
+
+pipelines:
+
+  - name: test_pipeline
+    steps:
+      - name: test_func
+        type: bash
+        configuration:
+          timeoutSeconds: 120
+        # setup:
+        #   runtime:
+        #     type: image
+        #     image:
+        #      custom:
+        #        name: drydock/u16all
+        #        tag: master
+        # triggeredBy:
+        #   resources:
+        #     - app
+        execution:
+          onExecute:
+            - sleep 3m
+
+
+  #
+  #
+  # - name: ci_pipeline
+  #   steps:
+  #     - name: build
+  #       type: bash
+  #       setup:
+  #         runtime:
+  #           type: image
+  #           image:
+  #            custom:
+  #              name: drydock/u16all
+  #              tag: master
+  #       triggeredBy:
+  #         resources:
+  #           - app
+  #       execution:
+  #         onExecute:
+  #           - pushd $res_app_resourcePath
+  #           - docker build -t app:latest .
+  #
+  #     - name: test
+  #       type: bash
+  #       setup:
+  #         runtime:
+  #           type: image
+  #           image:
+  #            custom:
+  #              name: drydock/u16all
+  #              tag: master
+  #       triggeredBy:
+  #         steps:
+  #           - build
+  #       execution:
+  #         onExecute:
+  #           - docker run --name "test_app" app:latest bash -c "pwd"
+  #           - docker rm -fv "test_app"
+  #
+  #     - name: push
+  #       type: bash
+  #       setup:
+  #         runtime:
+  #           type: image
+  #           image:
+  #            custom:
+  #              name: drydock/u16all
+  #              tag: master
+  #       requires:
+  #         integrations:
+  #           - art
+  #       triggeredBy:
+  #         steps:
+  #           - test
+  #       execution:
+  #         onExecute:
+  #           - docker login -u $int_art_username -p $int_art_password $int_art_url
+  #           - artIp=$(echo $int_art_url | awk -F[/:] '{print $4}')
+  #           - artPort=$(echo $int_art_url | awk -F[/:] '{print $5}')
+  #           - echo "$artIp:$artPort"
+  #           - docker tag app:latest $artIp:$artPort/demo/app:$STEP_ID
+  #           - docker push $artIp:$artPort/demo/app:$STEP_ID
+  #
+  #     - name: job2
+  #       type: bash
+  #       setup:
+  #         runtime:
+  #           type: image
+  #           image:
+  #            custom:
+  #              name: drydock/u16all
+  #              tag: master
+  #
+  #       triggeredBy:
+  #         steps:
+  #           - build
+  #       execution:
+  #         onExecute:
+  #           - echo "job2...."
