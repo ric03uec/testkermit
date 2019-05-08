@@ -29,7 +29,7 @@ pipelines:
             - app1
         execution:
           onExecute:
-            - sleep 3m
+            - printenv
 
 
   #
