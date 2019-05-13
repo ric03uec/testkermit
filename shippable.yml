@@ -16,6 +16,7 @@ pipelines:
       - name: test_func
         type: bash
         configuration:
+          affinityGroup: build
           timeoutSeconds: 120
         # setup:
         #   runtime:
@@ -33,6 +34,8 @@ pipelines:
 
       - name: test_func_next
         type: bash
+        configuration:
+          affinityGroup: build        
         triggeredBy:
           steps:
             - test_func
