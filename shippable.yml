@@ -31,11 +31,12 @@ pipelines:
         execution:
           onExecute:
             - printenv
+            - add_run_variable imageTag=$STEP_ID
 
       - name: test_func_next
         type: bash
         configuration:
-          affinityGroup: build        
+          affinityGroup: build
         triggeredBy:
           steps:
             - test_func
@@ -52,6 +53,7 @@ pipelines:
         execution:
           onExecute:
             - printenv
+            - echo @imageTag
 
 
       - name: parallel_2
