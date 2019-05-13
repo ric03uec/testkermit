@@ -73,8 +73,8 @@ pipelines:
         type: bash
         triggeredBy:
           steps:
-            - parallel_1
             - parallel_2
+            - parallel_1
             - parallel_3
         execution:
           onExecute:
