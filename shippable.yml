@@ -40,6 +40,47 @@ pipelines:
           onExecute:
             - printenv
 
+
+      - name: parallel_1
+        type: bash
+        triggeredBy:
+          steps:
+            - test_func_next
+        execution:
+          onExecute:
+            - printenv
+
+
+      - name: parallel_2
+        type: bash
+        triggeredBy:
+          steps:
+            - test_func_next
+        execution:
+          onExecute:
+            - printenv
+
+      - name: parallel_3
+        type: bash
+        triggeredBy:
+          steps:
+            - test_func_next
+        execution:
+          onExecute:
+            - printenv
+
+      - name: final_step
+        type: bash
+        triggeredBy:
+          steps:
+            - parallel_1
+            - parallel_2
+            - parallel_3
+        execution:
+          onExecute:
+            - printenv
+
+
   #
   #
   # - name: ci_pipeline
