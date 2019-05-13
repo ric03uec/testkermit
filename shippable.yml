@@ -31,6 +31,14 @@ pipelines:
           onExecute:
             - printenv
 
+      - name: test_func_next
+        type: bash
+        triggeredBy:
+          steps:
+            - test_func
+        execution:
+          onExecute:
+            - printenv
 
   #
   #
