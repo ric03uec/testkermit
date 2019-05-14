@@ -17,7 +17,6 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
-          timeoutSeconds: 120
         # setup:
         #   runtime:
         #     type: image
@@ -25,6 +24,13 @@ pipelines:
         #      custom:
         #        name: drydock/u16all
         #        tag: master
+        setup:
+          runtime:
+            type: image
+            image:
+              auto:
+                language: nodeJs
+                versions: 10.15.3
         triggeredBy:
           resources:
             - app1
@@ -44,7 +50,6 @@ pipelines:
         execution:
           onExecute:
             - printenv
-            - sleep 1m
 
 
       - name: parallel_1
@@ -78,6 +83,8 @@ pipelines:
 
       - name: final_step
         type: bash
+        configuration:
+          timeoutSeconds: 30
         triggeredBy:
           steps:
             - parallel_2
@@ -86,6 +93,7 @@ pipelines:
         execution:
           onExecute:
             - printenv
+            - sleep 1m
 
 
   #
