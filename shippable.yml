@@ -44,6 +44,7 @@ pipelines:
         execution:
           onExecute:
             - printenv
+            - sleep 1m
 
 
       - name: parallel_1
