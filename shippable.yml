@@ -30,7 +30,8 @@ pipelines:
             image:
               auto:
                 language: nodeJs
-                versions: 10.15.3
+                versions:
+                  - 10.15.3
         triggeredBy:
           resources:
             - app1
