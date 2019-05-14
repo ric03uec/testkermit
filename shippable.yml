@@ -31,7 +31,7 @@ pipelines:
               auto:
                 language: nodejs
                 versions:
-                  - 10.15.3
+                  - 10.15.1
         triggeredBy:
           resources:
             - app1
