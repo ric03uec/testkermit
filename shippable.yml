@@ -29,7 +29,7 @@ pipelines:
             type: image
             image:
               auto:
-                language: nodeJs
+                language: nodejs
                 versions:
                   - 10.15.3
         triggeredBy:
