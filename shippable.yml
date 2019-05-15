@@ -24,14 +24,6 @@ pipelines:
         #      custom:
         #        name: drydock/u16all
         #        tag: master
-        setup:
-          runtime:
-            type: image
-            image:
-              auto:
-                language: nodejs
-                versions:
-                  - 10.15.1
         triggeredBy:
           resources:
             - app1
