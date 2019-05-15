@@ -24,7 +24,7 @@ pipelines:
         #      custom:
         #        name: drydock/u16all
         #        tag: master
-        triggeredBy:
+        requires:
           resources:
             - app1
         execution:
