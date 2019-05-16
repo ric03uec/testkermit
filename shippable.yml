@@ -9,6 +9,9 @@ resources:
     initialVersion:
       sha: master
 
+  - name: myState
+    type: state
+
 pipelines:
 
   - name: test_pipeline
@@ -76,18 +79,29 @@ pipelines:
 
       - name: final_step
         type: bash
-        configuration:
-          timeoutSeconds: 30
         triggeredBy:
           steps:
             - parallel_2
             - parallel_1
             - parallel_3
+        outputResources:
+          - myState             
         execution:
           onExecute:
             - printenv
-            - sleep 1m
 
+
+  - name: second_test_pipeline
+    steps:
+      - name: first_step
+        type: bash
+        requires:
+          resources:
+            - app1
+            - myState
+        execution:
+          onExecute:
+            - printenv
 
   #
   #
