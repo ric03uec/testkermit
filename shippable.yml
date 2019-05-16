@@ -9,22 +9,22 @@ resources:
     initialVersion:
       sha: master
 
-  - name: myState
-    type: state
-
-  - name: p2pWebhook
-    type: webhook
-    configuration:
-      integrationName: intWebhook
-    initialVersion:
-      payload: "foo=bar"
-
-  - name: extWebhook
-    type: webhook
-    configuration:
-      integrationName: myExtWebhook
-    initialVersion:
-      payload: "foo=bar"
+  # - name: myState
+  #   type: state
+  #
+  # - name: p2pWebhook
+  #   type: webhook
+  #   configuration:
+  #     integrationName: intWebhook
+  #   initialVersion:
+  #     payload: "foo=bar"
+  #
+  # - name: extWebhook
+  #   type: webhook
+  #   configuration:
+  #     integrationName: myExtWebhook
+  #   initialVersion:
+  #     payload: "foo=bar"
 
 pipelines:
 
@@ -34,7 +34,7 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
-          nodePool: kermit_centos_pool
+          #nodePool: kermit_centos_pool
         setup:
           environmentVariables:
             normal:
@@ -47,19 +47,22 @@ pipelines:
             - app1
           integrations:
             - art
+            - manishas_slack
         execution:
           onExecute:
             - echo $myFirstName
             - echo $myLastName
             - echo $myMiddleName
             - printenv
+          onSuccess:
+            - send_notification manishas_slack  
 
 
       - name: test_func_next
         type: bash
         configuration:
           affinityGroup: build
-          nodePool: kermit_centos_pool
+          #nodePool: kermit_centos_pool
         triggeredBy:
           steps:
             - test_func
@@ -104,8 +107,6 @@ pipelines:
             - parallel_2
             - parallel_1
             - parallel_3
-        outputResources:
-          - myState
         execution:
           onExecute:
             - printenv
@@ -119,7 +120,6 @@ pipelines:
         requires:
           resources:
             - app1
-            - myState
         execution:
           onExecute:
             - printenv
