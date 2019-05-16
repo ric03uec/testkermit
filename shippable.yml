@@ -19,6 +19,13 @@ resources:
     initialVersion:
       payload: "foo=bar"
 
+  - name: extWebhook
+    type: webhook
+    configuration:
+      integrationName: myExtWebhook
+    initialVersion:
+      payload: "foo=bar"
+
 pipelines:
 
   - name: test_pipeline
@@ -93,11 +100,11 @@ pipelines:
             - parallel_3
         outputResources:
           - myState
-          - p2pWebhook
+          - extWebhook
         execution:
           onExecute:
             - printenv
-            - send_notification p2pWebhook 
+            - send_notification extWebhook 
 
 
   - name: second_test_pipeline
