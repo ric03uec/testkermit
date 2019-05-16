@@ -34,6 +34,7 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
+          nodePool: kermit_centos_pool
         setup:
           environmentVariables:
             normal:
@@ -64,6 +65,7 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
+          nodePool: kermit_centos_pool
         triggeredBy:
           steps:
             - test_func
