@@ -12,6 +12,13 @@ resources:
   - name: myState
     type: state
 
+  - name: p2pWebhook
+    type: webhook
+    configuration:
+      integrationName: intWebhook
+    initialVersion:
+      payload: "foo=bar"
+
 pipelines:
 
   - name: test_pipeline
@@ -85,10 +92,12 @@ pipelines:
             - parallel_1
             - parallel_3
         outputResources:
-          - myState             
+          - myState
+          - p2pWebhook
         execution:
           onExecute:
             - printenv
+            - send_notification p2pWebhook 
 
 
   - name: second_test_pipeline
@@ -99,9 +108,13 @@ pipelines:
           resources:
             - app1
             - myState
+        triggeredBy:
+          resources:
+            - p2pWebhook
         execution:
           onExecute:
             - printenv
+
 
   #
   #
