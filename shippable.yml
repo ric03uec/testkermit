@@ -41,12 +41,12 @@ pipelines:
               myLastName: Sahasrabudhe
             encrypted:
               myMiddleName: P0MA0FvspdmtybGshqsaGHwisg+oSu8DcLA7biLiZGhoSgrKpua4yZHqy5dWPakhUXZrvqd/TQGGR6TvIFqKcPrkG1aCzhVIScDL6ZuWGgvoUKqeAyppnAnRMh17t2hCmpvgJrd9+hmeqRprGL+CBsDnzpjQ4plIogt4tPpJq8CnDqMVTzKvVuafJhPen7fBDCJ/SuK1co7cdDoayziNI8ARFvWVSBt2OEE73qtsOK66F+Jm51R/HKJplCSl1/CVbJepVXf3uFoC6WOBygv7fpSxaPSrV60JIt02CYfstVlWFk48oKcmaJcldRbMmlhBHiGjdX9VduGUF7QTQNDE8w==
-            runtime:
-              type: image
-              image:
-               custom:
-                 name: drydock/u16all
-                 tag: master
+          runtime:
+            type: image
+            image:
+              custom:
+                name: drydock/u16all
+                tag: master
         requires:
           resources:
             - app1
