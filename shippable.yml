@@ -34,6 +34,13 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
+        setup:
+          environmentVariables:
+            normal:
+              myFirstName: Manisha
+              MyLastName: Sahasrabudhe
+            encrypted:
+              myMiddleName: P0MA0FvspdmtybGshqsaGHwisg+oSu8DcLA7biLiZGhoSgrKpua4yZHqy5dWPakhUXZrvqd/TQGGR6TvIFqKcPrkG1aCzhVIScDL6ZuWGgvoUKqeAyppnAnRMh17t2hCmpvgJrd9+hmeqRprGL+CBsDnzpjQ4plIogt4tPpJq8CnDqMVTzKvVuafJhPen7fBDCJ/SuK1co7cdDoayziNI8ARFvWVSBt2OEE73qtsOK66F+Jm51R/HKJplCSl1/CVbJepVXf3uFoC6WOBygv7fpSxaPSrV60JIt02CYfstVlWFk48oKcmaJcldRbMmlhBHiGjdX9VduGUF7QTQNDE8w==
         # setup:
         #   runtime:
         #     type: image
@@ -48,7 +55,11 @@ pipelines:
             - art
         execution:
           onExecute:
+            - echo $myFirstName
+            - echo $myLastName
+            - echo $myMiddleName
             - printenv
+
 
       - name: test_func_next
         type: bash
@@ -100,11 +111,10 @@ pipelines:
             - parallel_3
         outputResources:
           - myState
-          - extWebhook
         execution:
           onExecute:
             - printenv
-            - send_notification extWebhook 
+
 
 
   - name: second_test_pipeline
@@ -115,9 +125,6 @@ pipelines:
           resources:
             - app1
             - myState
-        triggeredBy:
-          resources:
-            - p2pWebhook
         execution:
           onExecute:
             - printenv
