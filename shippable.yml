@@ -54,8 +54,6 @@ pipelines:
             - echo $myLastName
             - echo $myMiddleName
             - printenv
-          onSuccess:
-            - send_notification manishas_slack  
 
 
       - name: test_func_next
