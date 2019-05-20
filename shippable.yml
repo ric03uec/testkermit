@@ -14,7 +14,7 @@ resources:
     imageName: demo/app
     configuration:
       integrationName: artDocker
-      isPull: false
+      autoPull: false
     initialVersion:
       imageTag: latest
 
