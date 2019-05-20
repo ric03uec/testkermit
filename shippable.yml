@@ -39,32 +39,25 @@ pipelines:
 
   - name: test_pipeline
     steps:
-      - name: test_func
+      - name: build
         type: bash
         configuration:
           affinityGroup: build
-          #nodePool: kermit_centos_pool
-        setup:
-          environmentVariables:
-            normal:
-              myFirstName: Manisha
-              myLastName: Sahasrabudhe
-            encrypted:
-              myMiddleName: rscE49jQ0hzuqduXeUuiGb+I2vAktnWV316QE4AyIZ29dStL3cDeRKL5lrjAlgl/wmtyZ4AStoPtkynuoVF4aeqDkOcTChGLN5HtOIvH59eEYmYWQq98GW9UQZZcwXGpw0+diMBbUCpre657ufhPvLfbZEo9zIEAFetGiDIJITT9/GDnJWokVHq8qB/i2rD7nw4Fks5rJF5oN5NC5Hkq5FnljNXvdWHCqDVKkjQnEr4XPzULn7TX5mWAosewc13CmY2NRYifYG0nBQm9dqFDsyTnqlu68wXYa4KJYoGz9tJXP8l/O5fdoknEK6xvwT9cjZ9GdcsJtc/QRJXW8zq+RQ==
-        requires:
+          #nodePool: kermit_centos_pool        requires:
           resources:
             - app1
         execution:
           onExecute:
-            - echo $myFirstName
-            - echo $myLastName
-            - echo $myMiddleName
             - printenv
+            - pushd $res_app1_resourcePath
+            - docker build -t app1:$STEP_ID .
             - write_output myDockerImg "imageTag="$STEP_ID
+            - add_run_variable imageName=$res_myDockerImg_imageName
+            - add_run_variable imageTag=$STEP_ID
         outputResources:
           - myDockerImg
 
-      - name: test_func_next
+      - name: test
         type: bash
         configuration:
           affinityGroup: build
@@ -75,6 +68,8 @@ pipelines:
         execution:
           onExecute:
             - printenv
+            - docker run --name "test_app" app1:$res_myDockerImg_imageTag bash -c "pwd"
+            - docker rm -fv "test_app"
             - echo $res_myDockerImg_imageTag
 
       - name: parallel_1
@@ -106,16 +101,24 @@ pipelines:
           onExecute:
             - printenv
 
-      - name: final_step
+      - name: push
         type: bash
         triggeredBy:
           steps:
             - parallel_2
             - parallel_1
             - parallel_3
+        requires:
+          integrations:
+            - artDocker
         execution:
           onExecute:
-            - printenv
+            - docker login -u $int_artDocker_username -p $int_artDocker_password $int_artDocker_url
+            - artIp=$(echo $int_artDocker_url | awk -F[/:] '{print $4}')
+            - artPort=$(echo $int_artDocker_url | awk -F[/:] '{print $5}')
+            - echo "$artIp:$artPort"
+            - docker tag app:$imageTag $artIp:$artPort/$imageName:$imageTag
+            - docker push $artIp:$artPort/$imageName:$imageTag
 
 
 
