@@ -9,6 +9,14 @@ resources:
     initialVersion:
       sha: master
 
+  - name: myDockerImg
+     type: image
+     imageName: demo/app
+     configuration:
+       integrationName: art
+     initialVersion:
+       imageTag: latest
+
   # - name: myState
   #   type: state
   #
@@ -45,15 +53,15 @@ pipelines:
         requires:
           resources:
             - app1
-          integrations:
-            - art
         execution:
           onExecute:
             - echo $myFirstName
             - echo $myLastName
             - echo $myMiddleName
             - printenv
-
+            - write_output myDockerImg "imageTag="$STEP_ID
+        outputResources:
+          - myDockerImg
 
       - name: test_func_next
         type: bash
@@ -62,11 +70,11 @@ pipelines:
           #nodePool: kermit_centos_pool
         triggeredBy:
           steps:
-            - test_func
+            - myDockerImg
         execution:
           onExecute:
             - printenv
-
+            - echo $res_myDockerImg_imageTag
 
       - name: parallel_1
         type: bash
