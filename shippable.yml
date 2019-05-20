@@ -118,7 +118,7 @@ pipelines:
             - artIp=$(echo $int_artDocker_url | awk -F[/:] '{print $4}')
             - artPort=$(echo $int_artDocker_url | awk -F[/:] '{print $5}')
             - echo "$artIp:$artPort"
-            - docker tag app:$imageTag $artIp:$artPort/$imageName:$imageTag
+            - docker tag app1:$imageTag $artIp:$artPort/$imageName:$imageTag
             - docker push $artIp:$artPort/$imageName:$imageTag
 
 
