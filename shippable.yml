@@ -13,7 +13,7 @@ resources:
     type: image
     imageName: demo/app
     configuration:
-      integrationName: art
+      integrationName: artDocker
       isPull: false
     initialVersion:
       imageTag: latest
