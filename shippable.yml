@@ -47,7 +47,6 @@ pipelines:
             - app1
           integrations:
             - art
-            - manishas_slack
         execution:
           onExecute:
             - echo $myFirstName
