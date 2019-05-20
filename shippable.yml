@@ -76,7 +76,7 @@ pipelines:
         type: bash
         triggeredBy:
           steps:
-            - test_func_next
+            - test
         execution:
           onExecute:
             - printenv
@@ -87,7 +87,7 @@ pipelines:
         type: bash
         triggeredBy:
           steps:
-            - test_func_next
+            - test
         execution:
           onExecute:
             - printenv
@@ -96,7 +96,7 @@ pipelines:
         type: bash
         triggeredBy:
           steps:
-            - test_func_next
+            - test
         execution:
           onExecute:
             - printenv
