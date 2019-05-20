@@ -54,7 +54,7 @@ pipelines:
             - docker build -t app1:$STEP_ID .
             - write_output myDockerImg "imageTag="$STEP_ID
             - add_run_variable imageName=$res_myDockerImg_imageName
-            - add_run_variable imageTag="$STEP_ID"
+            - add_run_variable imageTag=$STEP_ID
         outputResources:
           - myDockerImg
 
