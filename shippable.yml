@@ -14,6 +14,7 @@ resources:
     imageName: demo/app
     configuration:
       integrationName: art
+      isPull: false
     initialVersion:
       imageTag: latest
 
