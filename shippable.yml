@@ -10,12 +10,12 @@ resources:
       sha: master
 
   - name: myDockerImg
-     type: image
-     imageName: demo/app
-     configuration:
-       integrationName: art
-     initialVersion:
-       imageTag: latest
+    type: image
+    imageName: demo/app
+    configuration:
+      integrationName: art
+    initialVersion:
+      imageTag: latest
 
   # - name: myState
   #   type: state
