@@ -43,7 +43,8 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
-          #nodePool: kermit_centos_pool        requires:
+          #nodePool: kermit_centos_pool
+        triggeredBy:
           resources:
             - app1
         execution:
