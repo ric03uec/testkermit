@@ -13,7 +13,7 @@ resources:
     type: image
     imageName: demo/app
     configuration:
-      integrationName: artDocker
+      integrationName: art
       autoPull: false
     initialVersion:
       imageTag: latest
@@ -113,12 +113,12 @@ pipelines:
             - parallel_3
         requires:
           integrations:
-            - artDocker
+            - art
         execution:
           onExecute:
-            - docker login -u $int_artDocker_username -p $int_artDocker_password $int_artDocker_url
-            - artIp=$(echo $int_artDocker_url | awk -F[/:] '{print $4}')
-            - artPort=$(echo $int_artDocker_url | awk -F[/:] '{print $5}')
+            - docker login -u $int_art_username -p $int_art_password $int_art_url
+            - artIp=$(echo $int_art_url | awk -F[/:] '{print $4}')
+            - artPort=$(echo $int_art_url | awk -F[/:] '{print $5}')
             - echo "$artIp:$artPort"
             - docker tag app1:$imageTag $artIp:$artPort/$imageName:$imageTag
             - docker push $artIp:$artPort/$imageName:$imageTag
