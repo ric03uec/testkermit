@@ -64,7 +64,7 @@ pipelines:
           affinityGroup: build
           #nodePool: kermit_centos_pool
         triggeredBy:
-          resources:
+          steps:
             - build
         execution:
           onExecute:
