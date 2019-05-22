@@ -64,14 +64,14 @@ pipelines:
           affinityGroup: build
           #nodePool: kermit_centos_pool
         triggeredBy:
-          steps:
-            - build
+          resources:
+            - myDockerImg
         execution:
           onExecute:
             - printenv
-          #  - docker run --name "test_app" app1:$res_myDockerImg_imageTag bash -c "pwd"
-          #  - docker rm -fv "test_app"
-          #  - echo $res_myDockerImg_imageTag
+            - docker run --name "test_app" app1:$res_myDockerImg_imageTag bash -c "pwd"
+            - docker rm -fv "test_app"
+            - echo $res_myDockerImg_imageTag
             - echo $imageName
             - echo $imageTag
 
