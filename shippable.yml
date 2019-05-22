@@ -55,6 +55,8 @@ pipelines:
             - write_output myDockerImg "imageTag="$STEP_ID
             - add_run_variable imageName=$res_myDockerImg_imageName
             - add_run_variable imageTag=$STEP_ID
+            - add_pipeline_variable intName=$res_myDockerImg_integrationName
+            - add_pipeline_variable pullSetting=$res_myDockerImg_autoPull
         outputResources:
           - myDockerImg
 
@@ -74,6 +76,8 @@ pipelines:
             - echo $res_myDockerImg_imageTag
             - echo $imageName
             - echo $imageTag
+            - echo $pullSetting
+            - echo $intName
 
       - name: parallel_1
         type: bash
@@ -122,7 +126,8 @@ pipelines:
             - echo "$artDockerIp:$artDockerPort"
             - docker tag app1:$imageTag $artDockerIp:$artDockerPort/$imageName:$imageTag
             - docker push $artDockerIp:$artDockerPort/$imageName:$imageTag
-
+            - echo $pullSetting
+            - echo $intName
 
 
   - name: second_test_pipeline
