@@ -101,7 +101,7 @@ pipelines:
 
       - name: parallel_3
         type: bash
-        triggeredBy:
+        requires:
           steps:
             - test
         execution:
