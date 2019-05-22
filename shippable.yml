@@ -13,7 +13,7 @@ resources:
     type: image
     imageName: demo/app
     configuration:
-      integrationName: art
+      integrationName: artDocker
       autoPull: false
     initialVersion:
       imageTag: latest
@@ -113,15 +113,15 @@ pipelines:
             - parallel_3
         requires:
           integrations:
-            - art
+            - artDocker
         execution:
           onExecute:
-            - docker login -u $int_art_username -p $int_art_password $int_art_url
-            - artIp=$(echo $int_art_url | awk -F[/:] '{print $4}')
-            - artPort=$(echo $int_art_url | awk -F[/:] '{print $5}')
-            - echo "$artIp:$artPort"
-            - docker tag app1:$imageTag $artIp:$artPort/$imageName:$imageTag
-            - docker push $artIp:$artPort/$imageName:$imageTag
+            - docker login -u $int_artDocker_username -p $int_artDocker_password $int_artDocker_url
+            - artDockerIp=$(echo $int_artDocker_url | awk -F[/:] '{print $4}')
+            - artDockerPort=$(echo $int_artDocker_url | awk -F[/:] '{print $5}')
+            - echo "$artDockerIp:$artDockerPort"
+            - docker tag app1:$imageTag $artDockerIp:$artDockerPort/$imageName:$imageTag
+            - docker push $artDockerIp:$artDockerPort/$imageName:$imageTag
 
 
 
@@ -186,18 +186,18 @@ pipelines:
   #              tag: master
   #       requires:
   #         integrations:
-  #           - art
+  #           - artDocker
   #       triggeredBy:
   #         steps:
   #           - test
   #       execution:
   #         onExecute:
-  #           - docker login -u $int_art_username -p $int_art_password $int_art_url
-  #           - artIp=$(echo $int_art_url | awk -F[/:] '{print $4}')
-  #           - artPort=$(echo $int_art_url | awk -F[/:] '{print $5}')
-  #           - echo "$artIp:$artPort"
-  #           - docker tag app:latest $artIp:$artPort/demo/app:$STEP_ID
-  #           - docker push $artIp:$artPort/demo/app:$STEP_ID
+  #           - docker login -u $int_artDocker_username -p $int_artDocker_password $int_artDocker_url
+  #           - artDockerIp=$(echo $int_artDocker_url | awk -F[/:] '{print $4}')
+  #           - artDockerPort=$(echo $int_artDocker_url | awk -F[/:] '{print $5}')
+  #           - echo "$artDockerIp:$artDockerPort"
+  #           - docker tag app:latest $artDockerIp:$artDockerPort/demo/app:$STEP_ID
+  #           - docker push $artDockerIp:$artDockerPort/demo/app:$STEP_ID
   #
   #     - name: job2
   #       type: bash
