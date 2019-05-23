@@ -101,7 +101,7 @@ pipelines:
 
       - name: parallel_3
         type: bash
-        requires:
+        triggeredBy:
           steps:
             - test
         execution:
@@ -128,6 +128,7 @@ pipelines:
             - docker push $artDockerIp:$artDockerPort/$imageName:$imageTag
             - echo $pullSetting
             - echo $intName
+            - echo "Changing the world"
 
 
   - name: second_test_pipeline
