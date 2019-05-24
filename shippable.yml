@@ -43,7 +43,7 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
-          #nodePool: kermit_centos_pool
+          nodePool: kermit_ubuntu_pool
         triggeredBy:
           resources:
             - app1
@@ -64,7 +64,7 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
-          #nodePool: kermit_centos_pool
+          nodePool: kermit_ubuntu_pool
         triggeredBy:
           resources:
             - myDockerImg
