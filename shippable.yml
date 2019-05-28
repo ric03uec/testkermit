@@ -6,7 +6,7 @@ resources:
       integrationName: manishas_github
       branches:
         only: master
-    initialVersion:
+    version:
       sha: master
 
   - name: myDockerImg
@@ -15,7 +15,7 @@ resources:
     configuration:
       integrationName: artDocker
       autoPull: false
-    initialVersion:
+    version:
       imageTag: latest
 
   # - name: myState
