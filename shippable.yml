@@ -47,6 +47,9 @@ pipelines:
         triggeredBy:
           resources:
             - app1
+        requires:
+          integrations:
+            - notifySlack
         execution:
           onExecute:
             - printenv
@@ -120,6 +123,7 @@ pipelines:
         requires:
           integrations:
             - artDocker
+            - notifySlack
         execution:
           onExecute:
             - docker login -u $int_artDocker_username -p $int_artDocker_password $int_artDocker_url
