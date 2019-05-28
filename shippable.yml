@@ -57,6 +57,8 @@ pipelines:
             - add_run_variable imageTag=$STEP_ID
             - add_pipeline_variable intName=$res_myDockerImg_integrationName
             - add_pipeline_variable pullSetting=$res_myDockerImg_autoPull
+          onSuccess:
+            - send_notification notifySlack --text "this is a custom message"
         outputResources:
           - myDockerImg
 
@@ -129,7 +131,8 @@ pipelines:
             - echo $pullSetting
             - echo $intName
             - echo "Changing the world"
-
+          onSuccess:
+            - send_notification notifySlack --text "push is done"
 
   - name: second_test_pipeline
     steps:
