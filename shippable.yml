@@ -41,12 +41,10 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
-        triggeredBy:
-          resources:
-            - app1
-        requires:
           integrations:
             - notifySlack
+          inputResources:
+            - app1
         execution:
           onExecute:
             - printenv
@@ -66,8 +64,7 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: build
-        triggeredBy:
-          resources:
+          inputResources:
             - myDockerImg
         execution:
           onExecute:
@@ -82,8 +79,9 @@ pipelines:
 
       - name: parallel_1
         type: bash
-        triggeredBy:
-          steps:
+        configuration:
+          affinityGroup: build
+          inputSteps:
             - test
         execution:
           onExecute:
@@ -93,8 +91,9 @@ pipelines:
 
       - name: parallel_2
         type: bash
-        triggeredBy:
-          steps:
+        configuration:
+          affinityGroup: build
+          inputSteps:
             - test
         execution:
           onExecute:
@@ -102,8 +101,9 @@ pipelines:
 
       - name: parallel_3
         type: bash
-        triggeredBy:
-          steps:
+        configuration:
+          affinityGroup: build
+          inputSteps:
             - test
         execution:
           onExecute:
@@ -111,12 +111,12 @@ pipelines:
 
       - name: push
         type: bash
-        triggeredBy:
-          steps:
+        configuration:
+          affinityGroup: build
+          inputSteps:
             - parallel_2
             - parallel_1
             - parallel_3
-        requires:
           integrations:
             - artDocker
             - notifySlack
@@ -138,8 +138,8 @@ pipelines:
     steps:
       - name: first_step
         type: bash
-        requires:
-          resources:
+        configuration:
+          inputResources:
             - app1
         execution:
           onExecute:
