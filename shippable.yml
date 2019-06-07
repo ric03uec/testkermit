@@ -135,16 +135,16 @@ pipelines:
           onSuccess:
             - send_notification notifySlack --text "push is done"
 
-  # - name: second_test_pipeline
-  #   steps:
-  #     - name: first_step
-  #       type: bash
-  #       configuration:
-  #         inputResources:
-  #           - app1
-  #       execution:
-  #         onExecute:
-  #           - printenv
+  - name: second_test_pipeline
+    steps:
+      - name: first_step
+        type: bash
+        configuration:
+          inputResources:
+            - name: app1
+        execution:
+          onExecute:
+            - printenv
 
 
   #
