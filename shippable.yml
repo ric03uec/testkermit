@@ -1,6 +1,6 @@
 resources:
   - name: app1
-    type: gitRepo
+    type: GitRepo
     repoPath: manishas/app
     configuration:
       integrationName: manishas_github
@@ -10,7 +10,7 @@ resources:
       sha: master
 
   - name: myDockerImg
-    type: image
+    type: Image
     imageName: demo/app
     configuration:
       integrationName: artDocker
