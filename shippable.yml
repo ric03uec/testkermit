@@ -42,11 +42,11 @@ pipelines:
         configuration:
           affinityGroup: build
           integrations:
-            - notifySlack
+            - name: notifySlack
           inputResources:
-            - app1
+            - name: app1
           outputResources:
-            - myDockerImg            
+            - name: myDockerImg
         execution:
           onExecute:
             - printenv
@@ -66,7 +66,7 @@ pipelines:
         configuration:
           affinityGroup: build
           inputResources:
-            - myDockerImg
+            - name: myDockerImg
         execution:
           onExecute:
             - printenv
@@ -83,7 +83,7 @@ pipelines:
         configuration:
           affinityGroup: build
           inputSteps:
-            - test
+            - name: test
         execution:
           onExecute:
             - printenv
@@ -95,7 +95,7 @@ pipelines:
         configuration:
           affinityGroup: build
           inputSteps:
-            - test
+            - name: test
         execution:
           onExecute:
             - printenv
@@ -105,7 +105,7 @@ pipelines:
         configuration:
           affinityGroup: build
           inputSteps:
-            - test
+            - name: test
         execution:
           onExecute:
             - printenv
@@ -115,12 +115,12 @@ pipelines:
         configuration:
           affinityGroup: build
           inputSteps:
-            - parallel_2
-            - parallel_1
-            - parallel_3
+            - name: parallel_2
+            - name: parallel_1
+            - name: parallel_3
           integrations:
-            - artDocker
-            - notifySlack
+            - name: artDocker
+            - name: notifySlack
         execution:
           onExecute:
             - docker login -u $int_artDocker_username -p $int_artDocker_password $int_artDocker_url
