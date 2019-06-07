@@ -45,6 +45,8 @@ pipelines:
             - notifySlack
           inputResources:
             - app1
+          outputResources:
+            - myDockerImg            
         execution:
           onExecute:
             - printenv
@@ -57,8 +59,7 @@ pipelines:
             - add_pipeline_variable pullSetting=$res_myDockerImg_autoPull
           onSuccess:
             - send_notification notifySlack --text "this is a custom message"
-        outputResources:
-          - myDockerImg
+
 
       - name: test
         type: bash
@@ -134,16 +135,16 @@ pipelines:
           onSuccess:
             - send_notification notifySlack --text "push is done"
 
-  - name: second_test_pipeline
-    steps:
-      - name: first_step
-        type: bash
-        configuration:
-          inputResources:
-            - app1
-        execution:
-          onExecute:
-            - printenv
+  # - name: second_test_pipeline
+  #   steps:
+  #     - name: first_step
+  #       type: bash
+  #       configuration:
+  #         inputResources:
+  #           - app1
+  #       execution:
+  #         onExecute:
+  #           - printenv
 
 
   #
