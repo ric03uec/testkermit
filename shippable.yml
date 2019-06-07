@@ -138,7 +138,7 @@ pipelines:
   - name: second_test_pipeline
     steps:
       - name: first_step
-        type: bash
+        type: Bash
         configuration:
           inputResources:
             - name: app1
