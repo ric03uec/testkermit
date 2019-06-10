@@ -117,7 +117,7 @@ pipelines:
           onSuccess:
             - send_notification notifySlack --text "push is done"
 
-  - name: second_test_pipeline
+  - name: ric0euec_pipeline_2
     steps:
       - name: first_step
         type: Bash
