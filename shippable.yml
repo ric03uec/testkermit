@@ -17,7 +17,7 @@ resources:
 
 pipelines:
 
-  - name: test_pipeline
+  - name: ric03uec_pipeline
     steps:
       - name: build
         type: Bash
