@@ -49,6 +49,8 @@ pipelines:
           affinityGroup: build
           inputResources:
             - name: myDockerImg
+          inputSteps:
+            - name: build
         execution:
           onExecute:
             - printenv
