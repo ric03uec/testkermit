@@ -1,0 +1,18 @@
+resources:
+  - name: admiral_repo
+    type: GitRepo
+    configuration:
+      path: ric03uec/admiral
+      gitProvider: ric03uec_github
+
+pipelines:
+  - name: test_pipeline
+    steps:
+      - name: test_bash
+        type: Bash
+        configuration:
+          inputResources:
+            - name: admiral_repo
+        execution:
+          onExecute:
+            - echo hi
